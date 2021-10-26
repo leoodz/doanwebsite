@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Trang chính</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+ 
+    <link rel="stylesheet"  href="../../static/css/bootstrap.css">
+    <link rel="stylesheet"  href="../../static/css/textBox.css">
+
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href={{Home}}>Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            
+          </ul>
+          <form class="form-inline" method="POST">
+            <button type="submit" name='Logout' value="out" class="btn btn-primary position-relative">Đăng xuất</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+        <div class="row"> 
+            {% for i in Gio_hang%}
+                <div class="col-md-4">
+                    
+                    <div class="card" style="width: 18rem;">
+                        <img src="{{url_for('static',filename='images/'+ i['ImageUrl'])}}" class="card-img-top" alt="Ảnh sản Phẩm"style="width:275px;height:300px;">
+                        <div class="card-body">
+                            <form class="form-inline" method="POST">
+                                <p></p><h5 class="card-title" >{{i['NameSP']}}</h5></p>
+                                <p class="card-text" >Giá: {{"{:,} VNĐ".format(i['Sell'])}}</p>
+                                <p class="card-text">Số lượng mua: {{i['SL_trong_gio']}}</p>
+                                <p class="card-text" >Thành tiền: {{"{:,} VNĐ".format(i['Sell']*i['SL_trong_gio'])}}</p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <div class="col-md-4 .ms-auto">
+                <h2><p class="card-text" >Tổng tiền: {{"{:,} VNĐ".format(Tongtien)}}</p></h2>
+                <h3><p class="card-text" >Tên khách hàng: {{data['NameKH']}}</p></h3>
+                <h3><p class="card-text" >Địa chỉ: {{data['DCKH']}}</p></h3>
+                <h3><p class="card-text" >Số điện thoại: {{data['SDTKH']}}</p></h3>
+            </div>
+        </div>
+    </nav>
+    <br>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <form method="POST">
+                <button type="submit" class="btn btn-primary mb-2"name="Thao_tac" value="Out">Quay về</button>
+            </form>
+            <form method="POST">
+                <button type="submit" class="btn btn-primary mb-2" name="Thao_tac" value="XacNhan">Xác nhận</button>
+            </form>
+        </div>
+    </nav>
+    {{Thong_bao}}
+    <script src="../../static/js/bootstrap.js"></script>
+    <script src="../../static/js/textBox.js"></script>
+
+  </body>
+</html>

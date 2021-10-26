@@ -1,0 +1,6 @@
+{
+    "NameServer" : "taihieu.database.windows.net",
+    "NameDatabase": "QLBH",
+    "Account_SQL": "huynhtai",
+    "Pass_SQL":"p@ssW0rd"
+}

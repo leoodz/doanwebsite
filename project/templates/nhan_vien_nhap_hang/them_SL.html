@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en" id="ht-ml">
+  <head>
+    <title>Thêm số lượng</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+
+    <link rel="stylesheet"  href="../../static/css/bootstrap.css">
+    <link rel="stylesheet"  href="../../static/css/backrough.css">
+
+  </head>
+  <body  id="bro-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href={{Home}}>Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          </ul>
+          <form class="form-inline" method="POST">
+            <button type="submit" name='Logout' value="out" class="btn btn-primary position-relative">Đăng xuất</button>
+          </form>
+        </div>
+      </div>  
+    </nav>
+    <div class="container">
+      <br><br>
+      <div class="row">
+        <form method="POST">
+          <div class="card" style="width: 40rem;">
+            <h3><img src="../../static/images/{{data[6]}}" alt="" width="500px" class="rounded mx-auto d-block" style="width:400px;height:400px;"></h3>
+            <div class="card-body">
+              <h4 class="card-title">Tên sản phẩm :</h4>
+              <p class="card-text"><h3>{{data[1]}}</h3></p>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Giá: {{"{:,} VNĐ".format(data[5])}}</li>
+              <li class="list-group-item">Số lượng còn : {{data[8]}}</li>
+              <li class="list-group-item">Số lượng nhập : <input type="number" name="{{data[0]}}" min="1"></li>
+            </ul>
+            <div class="card-body">
+                <button type="submit" class="btn btn-primary position-relative">Thêm số lượng</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div> 
+    <script src="../../static/js/bootstrap.js"></script>
+
+  </body>
+</html>

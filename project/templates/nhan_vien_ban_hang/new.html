@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en" id="ht-ml">
+  <head>
+    <title>Trang chính</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+
+    <link rel="stylesheet"  href="../../static/css/bootstrap.css">
+    <link rel="stylesheet"  href="../../static/css/backrough.css">
+    <link rel="stylesheet"  href="../../static/css/textBox.css">
+
+  </head>
+  <body  id="bro-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href={{Home}}>Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <a class="navbar-brand" href="/danh-sach-khach-hang-dang-cho-xu-ly">Danh Sách</a>
+          </ul>
+          <form class="form-inline" method="POST">
+            <button type="submit" name='Logout' value="out" class="btn btn-primary position-relative">Đăng xuất</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <br><br>
+      <div class="row">
+        <div class="card" style="width: 40rem;">
+          <h3><img src="../../static/images/{{data[6]}}" alt="" width="500px" class="rounded mx-auto d-block" style="width:400px;height:400px;"></h3>
+          <div class="card-body">
+            <h4 class="card-title">Tên sản phẩm :</h4>
+            <p class="card-text"><h3>{{data[1]}}</h3></p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Giá: {{"{:,} VNĐ".format(data[5])}}</li>
+            <form method="POST">
+              <li class="list-group-item">Số Lượng: <input type="number" name="{{data[0]}}" min="1" max="{{data[8]}}" step="1" value="{{SL}}"></li>
+            </form>
+            {% if SL > 0 %}
+            <li class="list-group-item">Thành tiền: {{"{:,} VNĐ".format(data[5]*SL)}}</li>
+            {% else %}
+            <li class="list-group-item">Thành tiền: {{"{:,} VNĐ".format(data[5]*0)}}</li>
+            {% endif %}
+          </ul>
+          <div class="card-body">
+            <button id="myBtn" class="btn btn-primary mb-2" ><h3> Bán </h3></button>
+            {% if SL > 0 %}
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <form method='POST'>
+                        <span class="close">&times;</span>
+                        <h2>Điền thông tin khách hàng</h2>
+                        <div class="fomrgroup">
+                            <b>Họ và tên: </b>
+                            <input type="text" name="NameKH">
+                        </div>
+                        <div class="fomrgroup">
+                            <b>Địa chỉ:</b>
+                            <input type="text" name="DC_KH">
+                        </div>
+                        <div class="fomrgroup">
+                            <b>SDT liên hệ:</b>
+                            <input type="text" name="SDT_KH">
+                        </div>
+                        <div class="fomrgroup">
+                          <button type="submit" class="btn btn-primary mb-2">Xác nhận</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {% else %}
+            <div id="myModal" class="modal">
+              <div class="modal-content">
+                  <span class="close">&times;</span>
+                  <h2>Vui lòng điền số lượng trước</h2>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div> 
+    <script src="../../static/js/bootstrap.js"></script>
+  
+    <script src="../../static/js/textBox.js"></script>
+  </body>
+</html>

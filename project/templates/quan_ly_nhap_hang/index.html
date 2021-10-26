@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <link rel="stylesheet"  href="../../static/css/bootstrap.css">
+
+    <title>Quản lý Bán Hàng</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{{Home}}">Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <a class="navbar-brand" href="/them-nhan-vien-nhap-hang">Thêm nhân viên nhập hàng</a>
+          </ul>
+          <a href="/thong-tin-ca-nhan/{{id}}" class="btn btn-link">Thông tin cá nhân</a>
+          <form class="form-inline" method="POST">
+            <button type="submit" name='Logout' value="out" class="btn btn-primary position-relative">Đăng xuất</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <br><br>
+    <h2 class="text-center">Bản nhân viên nhập hàng</h2>
+    <h3 class="text-center">(Tháng {{Thang}} năm {{Nam}})</h3>
+    <br>
+    <div class="container">
+      <div class="row">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Tên nhân viên</th>
+              <th scope="col">Năm Sinh</th>
+              <th scope="col">SDT</th>
+              <th scope="col">Trạng thái</th>
+              <th scope="col">Tổng phiếu nhập</th>
+              <th scope="col">Tổng sản phẩm nhập</th>
+              <th scope="col">Tác vụ</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in DS %}
+            <tr>
+              <th scope="row">{{item['NameNV']}}</th>
+              <td>{{item['NS']}}</td>
+              <td>{{item['SDT']}}</td>
+              {% if item['TT'] == True %}
+              <td>Hoạt động</td>
+              {% else %}
+              <td>Khóa</td>
+              {% endif %}
+              <td>{{item['SoPN']}}</td>
+              {% if item['TongHN']==None %}
+              <td>0</td>
+              {% else %}
+              <td>{{item['TongHN']}}</td>
+              {% endif %}
+              {% if item['TT'] == True %}
+              <td>
+                <form method="POST">
+                  <button type="submit" Name="Block" value="{{item['id']}}" class="btn btn-danger">Block</button>
+                  <a href="/chi-tiet-nhan-vien-nhap-hang/{{item['id']}}" class="btn btn-success">Chi tiết</a>
+                  <a href="/quen-password/{{item['id']}}" class="btn btn-success">Quên mật khẩu</a>
+                </form>
+              </td>
+              {% else %}
+              <td>
+                <form method="POST">
+                  <button type="submit" Name="UnBlock" value="{{item['id']}}" class="btn btn-danger">UnBlock</button>
+                  <a href="/chi-tiet-nhan-vien-ban-hang/{{item['id']}}" class="btn btn-success">Chi tiết</a>
+                  <a href="/quen-password/{{item['id']}}" class="btn btn-success">Quên mật khẩu</a>
+                </form>
+              </td>
+              {% endif %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <div class="col-md-12 text-center" >
+          <div class="alert alert-dark" role="alert">
+            <p><h3>Tổng phiếu nhập : {{TongPN}} phiếu</h3></p>
+            {% if TongSP==None %}
+            <p><h3>Tổng sản phẩm nhập : 0 Sản phẩm</h3></p>
+            {% else%}
+            <p><h3>Tổng sản phẩm nhập : {{TongSP}} Sản phẩm</h3></p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <form method="POST">
+        <div class="row">
+          <div class="col">
+            <div class="d-grid gap-2 d-md-block">
+              <button class="btn btn-primary" type="submit" name="Trang" value="Truoc">Trang trước</button>
+            </div>
+          </div>
+          {% if Thang==Thang_max and Nam==Nam_max %}
+          {% else %}
+          <div class="col">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <button class="btn btn-primary" type="submit" name="Trang" value="Sau">Trang sau</button>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </form>
+    </div>
+    <script src="../../static/js/bootstrap.js"></script>
+
+  </body>
+</html>

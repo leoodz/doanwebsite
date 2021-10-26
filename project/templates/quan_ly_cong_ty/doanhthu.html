@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+    <link rel="stylesheet"  href="../../static/css/bootstrap.css">
+
+    <title>Quản lý công ty</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href={{Home}}>Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <a class="navbar-brand" href="/quan-ly-cong-ty/doanh-thu">Doanh thu</a>
+            <a class="navbar-brand" href="/quan-ly-cong-ty/chuc-nang">Chức năng</a>
+          </ul>
+          <form class="form-inline" method="POST">
+            <button type="submit" name='Logout' value="out" class="btn btn-primary position-relative">Đăng xuất</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-5">
+          <br><br>
+          <h3 class="text-center">Doanh thu theo Loại</h3>
+          <br>
+          <canvas id="myChart" width="400" height="400"></canvas>
+        </div>
+        <div class="col-md-5">
+          <br><br>
+          <h3 class="text-center">Doanh thu theo Nhãn hàng</h3>
+          <br>
+          <canvas id="myChart_2" width="400" height="400"></canvas>
+        </div>
+      </div>
+      <div class="row mx-auto">
+        <div class="col align-self-center">
+          <br>
+          <h3 class="text-center">Tháng {{Thang}} năm {{Nam}}</h3>
+          <br>
+          <h3 class="text-center">Tổng thu tháng : {{"{:,} VND".format(Thu)}}</h3>
+          <br>
+          <h3 class="text-center">Tổng chi tháng  : {{"{:,} VNĐ".format(Chi)}}</h3>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <form method="POST">
+        <div class="row">
+          <div class="col">
+            <div class="d-grid gap-2 d-md-block">
+              <button class="btn btn-primary" type="submit" name="Trang" value="Truoc">Trang trước</button>
+            </div>
+          </div>
+          {% if Thang==Thang_max and Nam==Nam_max %}
+          {% else %}
+          <div class="col">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <button class="btn btn-primary" type="submit" name="Trang" value="Sau">Trang sau</button>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </form>
+    </div>
+    <script src="../../static/js/bootstrap.js"></script>
+    <script src="../../static/js/chart.js"></script>
+    <script>
+      var ctx = document.getElementById('myChart').getContext('2d');
+      var myChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+              labels: [
+                {% for i in loai %} 
+                "{{i['NameLoai']}}",
+                {% endfor %}
+              ],
+              datasets: [{
+                  label: 'Số lượng sản phẩm bán được',
+                  data: [
+                  {% for i in loai %} 
+                    {{i['TongSP']}},
+                  {% endfor %}
+                  ],
+                  backgroundColor: [
+                      'rgba(255, 99, 132, 0.2)',
+                      'rgba(54, 162, 235, 0.2)',
+                      'rgba(255, 206, 86, 0.2)',
+                      'rgba(75, 192, 192, 0.2)',
+                      'rgba(153, 102, 255, 0.2)',
+                      'rgba(255, 159, 64, 0.2)'
+                  ],
+                  borderColor: [
+                      'rgba(255, 99, 132, 1)',
+                      'rgba(54, 162, 235, 1)',
+                      'rgba(255, 206, 86, 1)',
+                      'rgba(75, 192, 192, 1)',
+                      'rgba(153, 102, 255, 1)',
+                      'rgba(255, 159, 64, 1)'
+                  ],
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              scales: {
+                  y: {
+                      beginAtZero: true
+                  }
+              }
+          }
+      });
+    </script>
+    <script>
+      var ctx = document.getElementById('myChart_2').getContext('2d');
+      var myChart_2 = new Chart(ctx, {
+          type: 'bar',
+          data: {
+              labels: [
+                {% for i in NH %} 
+                "{{i['NameNH']}}",
+                {% endfor %}
+              ],
+              datasets: [{
+                  label: 'Số lượng sản phẩm bán được',
+                  data: [
+                  {% for i in NH %} 
+                    {{i['TongSP']}},
+                  {% endfor %}
+                  ],
+                  backgroundColor: [
+                      'rgba(255, 99, 132, 0.2)',
+                      'rgba(54, 162, 235, 0.2)',
+                      'rgba(255, 206, 86, 0.2)',
+                      'rgba(75, 192, 192, 0.2)',
+                      'rgba(153, 102, 255, 0.2)',
+                      'rgba(255, 159, 64, 0.2)'
+                  ],
+                  borderColor: [
+                      'rgba(255, 99, 132, 1)',
+                      'rgba(54, 162, 235, 1)',
+                      'rgba(255, 206, 86, 1)',
+                      'rgba(75, 192, 192, 1)',
+                      'rgba(153, 102, 255, 1)',
+                      'rgba(255, 159, 64, 1)'
+                  ],
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              scales: {
+                  y: {
+                      beginAtZero: true
+                  }
+              }
+          }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,17 @@
+#ht-ml{
+    height: 100%;
+}    
+#bro-light{
+    background-image: url("../images/backrounds/backround_login.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    margin: 0;
+}
+#nen_home{
+    background-image: url("../images/backrounds/nordwood-themes-83bbtiN3RkY-unsplash.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    margin: 0;
+}

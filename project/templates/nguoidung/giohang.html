@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Trang chính</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <link rel="stylesheet"  href="../../static/css/bootstrap.css">
+    <link rel="stylesheet"  href="../../static/css/textBox.css">
+
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">Home</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </nav>
+    <div class="container">
+        <div class="row"> 
+            {% if Gio_hang==[] %}
+            <h3>Trong giỏ không có món hàng nào !</h3>
+            {% else %}
+            {% for i in Gio_hang%}
+                <div class="col-md-4">
+                  <div class="card" style="width: 18rem;">
+                    <img src="{{url_for('static',filename='images/'+ i['ImageUrl'])}}" class="card-img-top" alt="Ảnh sản Phẩm"style="width:275px;height:300px;">
+                    <div class="card-body">
+                      <h5 class="card-title">{{i['NameSP']}}</h5>
+                    </div>
+                    <form method="POST">
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Giá: {{"{:,} VNĐ".format(i['Sell'])}}</li>
+                        <li class="list-group-item">Số Lượng: <input type="number" name="{{i['IdSP']}}" min="1" max="{{i['SL']}}" step="1" value="{{i['SL_trong_gio']}}"></li>
+                        <li class="list-group-item">Thành tiền: {{"{:,} VNĐ".format(i['Sell']*i['SL_trong_gio'])}}</li>
+                      </ul>
+                    </form>
+                    <div class="card-body">
+                      <form class="form-inline" method="POST">
+                        <button type="submit" name="{{i['IdSP']}}" class="btn btn-danger mb-2" value="DELETE">Delete</button>
+                    </form>
+                    </div>
+                  </div>
+                </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <div class="col-md-4 .ms-auto">
+                <h2><p class="card-text" >Tổng tiền: {{"{:,} VNĐ".format(Tongtien)}}</p></h2>
+                <button id="myBtn" class="btn btn-primary mb-2" >Thanh toán</button>
+                <div id="myModal" class="modal">
+                    <div class="modal-content">
+                        <form method='POST'>
+                            <span class="close">&times;</span>
+                            <h2>Điền thông tin</h2>
+                            <div class="fomrgroup">
+                                <b>Họ và tên: </b>
+                                <input type="text" name="NameKH">
+                            </div>
+                            <div class="fomrgroup">
+                                <b>Địa chỉ:</b>
+                                <input type="text" name="DC_KH">
+                            </div>
+                            <div class="fomrgroup">
+                                <b>Số điện thoại:</b>
+                                <input type="text" name="SDT_KH">
+                            </div>
+                            <div class="fomrgroup">
+                              <button type="submit" class="btn btn-primary mb-2">Xác nhận</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+      {{thong_bao}}
+    </div>
+    <script src="../../static/js/bootstrap.js"></script>
+    <script src="../../static/js/textBox.js"></script>
+
+  </body>
+</html>

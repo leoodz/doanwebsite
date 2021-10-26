@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+ 
+    <link rel="stylesheet"  href="../../static/css/bootstrap.css">
+
+    <title>Quản lý công ty</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href={{Home}}>Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <a class="navbar-brand" href="/quan-ly-cong-ty/doanh-thu">Doanh thu</a>
+            <a class="navbar-brand" href="/quan-ly-cong-ty/chuc-nang">Chức năng</a>
+          </ul>
+          <form class="form-inline" method="POST">
+            <button type="submit" name='Logout' value="out" class="btn btn-primary position-relative">Đăng xuất</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <div class="container-xl">
+        <div class="row">
+            <div class="col text-center">
+              <br><br>
+              <h2>DS chức năng quản lý</h2>
+              <br>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col"><p> Tên chức năng</p></th>
+                    <th scope="col"><p class="text-start">Trạng thái</p></th>
+                  </tr>
+                </thead>
+                <form method="POST">
+                    <tbody>
+                        <tr>
+                          <th scope="row">Khóa đăng nhập</th>
+                          <th>
+                            {% if DS['DangNhap']==True %}
+                              <div class="form-check form-switch">
+                                  <input class="form-check-input" name="DangNhap" onclick="check()" type="checkbox" role="switch" id="DangNhap" checked >
+                              </div>
+                            {% else %}
+                              <div class="form-check form-switch">
+                                <input class="form-check-input" name="DangNhap"  onclick="check()" type="checkbox" role="switch" id="DangNhap">
+                              </div>
+                            {% endif %}
+                          </th>
+                        </tr>
+                        <tr>
+                          <th scope="row">Khóa quản lý bán hàng</th>
+                          <th>
+                            {% if DS['QLBanHang']==True %}
+                              <div class="form-check form-switch">
+                                  <input class="form-check-input" name="QLBanHang"  onclick="check()" type="checkbox" role="switch" id="QLBH" checked >
+                              </div>
+                            {% else %}
+                              <div class="form-check form-switch">
+                                <input class="form-check-input" name="QLBanHang"  onclick="check()" type="checkbox" role="switch" id="QLBH" >
+                              </div>
+                            {% endif %}
+                          </th>
+                        </tr>
+                        <tr>
+                          <th scope="row">Khóa quản lý nhập hàng</th>
+                          <th>
+                            {% if DS['QLNhapHang']==True %}
+                              <div class="form-check form-switch">
+                                  <input class="form-check-input" name="QLNhapHang"  onclick="check()" type="checkbox" role="switch" id="QLNH" checked >
+                              </div>
+                            {% else %}
+                              <div class="form-check form-switch">
+                                <input class="form-check-input" name="QLNhapHang"  onclick="check()" type="checkbox" role="switch" id="QLNH"  >
+                              </div>
+                            {% endif %}
+                          </th>
+                        </tr>
+                        <tr>
+                          <th scope="row">Khóa nhân viên nhập hàng</th>
+                          <th>
+                            {% if DS['NhapHang']==True %}
+                              <div class="form-check form-switch">
+                                  <input class="form-check-input" name="NhapHang"  onclick="check()" type="checkbox" role="switch" id="NVNH" checked>
+                              </div>
+                            {% else %}
+                              <div class="form-check form-switch">
+                                <input class="form-check-input" name="NhapHang"  onclick="check()" type="checkbox" role="switch" id="NVNH" >
+                              </div>
+                            {% endif %}
+                          </th>
+                        </tr>
+                        <tr>
+                          <th scope="row">Khóa nhân viên bán hàng</th>
+                          <th>
+                            {% if DS['BanHang']==True %}
+                              <div class="form-check form-switch">
+                                  <input class="form-check-input" name="BanHang"  onclick="check()" type="checkbox" role="switch" id="NVBH" checked>
+                              </div>
+                            {% else %}
+                              <div class="form-check form-switch">
+                                <input class="form-check-input" name="BanHang"  onclick="check()" type="checkbox" role="switch" id="NVBH" >
+                              </div>
+                            {% endif %}
+                          </th>
+                        </tr>
+                        <tr>
+                          <th scope="row">Lưu trạng thái</th>
+                          <th>
+                              <div class="input-group flex-nowrap">
+                                  <button type="submit" class="btn btn-primary position-relative" onclick="myFunction()">Save</button>
+                              </div>
+                          </th>
+                        </tr>
+                      </tbody>
+                </form>
+              </table>
+              <br><br>
+              <h2>Thêm loại hàng hoặc nhãn hàng</h2>
+              <br>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col"><p> Tên chức năng</p></th>
+                    <th scope="col"><p class="text-start">Cần thêm</p></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Thêm nhãn hàng</th>
+                    <th>
+                        <form method="POST">
+                        <div class="input-group flex-nowrap">
+                            <input type="text" class="form-control" name="NH" aria-describedby="addon-wrapping">
+                            <button type="submit" class="btn btn-primary position-relative" onclick="myFunction()">Thêm</button>
+                        </div>
+                        </form>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th scope="row">Thêm loại hàng</th>
+                    <th>
+                        <form method="POST">
+                            <div class="input-group flex-nowrap">
+                                <input type="text" class="form-control" name="Loai" aria-describedby="addon-wrapping">
+                                <button type="submit" class="btn btn-primary position-relative" onclick="myFunction()">Thêm</button>
+                            </div>
+                        </form>
+                    </th>
+                    </tr>
+                </tbody>
+              </table>
+              {{thong_bao}}
+            </div>
+        </div>
+    </div>
+    <script src="../../static/js/bootstrap.js"></script>
+    <script>
+        function myFunction() {
+          confirm("Xác nhận");
+        }
+        function check() {
+          if (document.getElementById("DangNhap").checked == false){
+            document.getElementById("QLBH").checked = false;
+            document.getElementById("QLNH").checked = false;
+            document.getElementById("NVBH").checked = false;
+            document.getElementById("NVNH").checked = false;
+          }
+          if (document.getElementById("QLBH").checked == true){
+            document.getElementById("DangNhap").checked = true;
+          }
+          if (document.getElementById("QLNH").checked == true){
+            document.getElementById("DangNhap").checked = true;
+          }
+          if (document.getElementById("NVBH").checked == true){
+            document.getElementById("DangNhap").checked = true;
+          }
+          if (document.getElementById("NVNH").checked == true){
+            document.getElementById("DangNhap").checked = true;
+          }
+        }
+
+      </script>
+  </body>
+</html>

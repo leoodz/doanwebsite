@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <link rel="stylesheet"  href="../../static/css/bootstrap.css">
+
+    <title>Quản lý Nhap Hàng</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{{Home}}">Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <a class="navbar-brand" href="/them-nhan-vien-nhap-hang">Thêm nhân viên nhập hàng</a>
+          </ul>
+          <a href="/thong-tin-ca-nhan/{{id}}" class="btn btn-link">Thông tin cá nhân</a>
+          <form class="form-inline" method="POST">
+            <button type="submit" name='Logout' value="out" class="btn btn-primary position-relative">Đăng xuất</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <br><br>
+    <h2 class="text-center">Chi tiết nhập hàng </h2>
+    <h3 class="text-center">Nhân viên {{TT_NV[1]}}</h3>
+    <br>
+    <div class="container">
+      <div class="row">
+          {%for i in DS %}
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="{{url_for('static',filename='images/'+ i['ImageUrl'])}}" alt="Card image cap" style="width:275px;height:300px;">
+            <div class="card-body">
+              <h5 class="card-title">{{i['NameSP']}}</h5>
+              <p class="card-text">Ngày nhập: {{i['NgayNhap']}}</p>
+              <p class="card-text">Số lượng nhập: {{i['SLThem']}}</p>
+              <p class="card-text">Giá nhập: {{"{:,} VNĐ".format(i['Buy'])}}</p>
+              <p class="card-text">Thành Tiền: {{"{:,} VNĐ".format(i['SLThem']*i['Buy'])}}</p>
+            </div>
+          </div>
+          {% endfor %}
+      </div>
+      <br><br><br>
+      <form method="POST">
+        <button type="submit" name="Back" value="out" class="btn btn-primary">Back</button>
+      </form>
+    </div>
+    <script src="../../static/js/bootstrap.js"></script>
+  
+  </body>
+</html>
